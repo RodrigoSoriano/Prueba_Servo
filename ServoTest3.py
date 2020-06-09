@@ -17,7 +17,7 @@ servo1.start(0)
 
 try:
     while True:
-        #angle = float(input('Enter angle between 0 & 180: '))
+        angle = float(input('Enter angle between 0 & 180: '))
 
         #time.sleep(1)
         #servo1.ChangeDutyCycle(2 + (25 / 18))
