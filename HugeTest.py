@@ -14,44 +14,34 @@ for i in range(rango):
     mano_izquierda.servo[i].set_pulse_width_range(500, 2500)
 
 
-DIR = 5
-STEP = 6
+DIR = 6
+STEP = 5
 
-DIR2 = 20
-STEP2 = 21
+DIR2 = 21
+STEP2 = 20
 
 CW = 0
 CCW = 1
 SPR = 200
-MODE = (17,22,27)
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(DIR, GPIO.OUT)
 GPIO.setup(STEP, GPIO.OUT)
 GPIO.setup(DIR2, GPIO.OUT)
 GPIO.setup(STEP2, GPIO.OUT)
-GPIO.setup(MODE,GPIO.OUT)
 
-RES = {'full': (0,0,0),
-       'half': (1,0,0),
-       '1/4': (0,1,0),
-       '1/8': (1,1,0),
-       '1/16': (0,0,1),
-       '1/32': (1,0,1),}
-
-step_count = SPR*10
-delay = 0.005/10
-GPIO.output(MODE,RES['full'])
+step_count = SPR*3
+delay = 0.005/14
 
 def servo_motores():
     while True:
         for i in range(rango):
-                mano_derecha.servo[i].angle = 0
-                mano_izquierda.servo[i].angle = 0
+                mano_derecha.servo[i].angle = 10
+                mano_izquierda.servo[i].angle = 10
         sleep(0.1)
         for i in range(rango, -1, -1):
-                mano_derecha.servo[i].angle = 180
-                mano_izquierda.servo[i].angle = 180
+                mano_derecha.servo[i].angle = 170
+                mano_izquierda.servo[i].angle = 170
         sleep(0.1)
 
 def stepper_motor():
@@ -67,7 +57,7 @@ def stepper_motor():
             GPIO.output(STEP2, GPIO.LOW)
             sleep(delay)
 
-        sleep(0.1)
+        sleep(0.5)
 
         GPIO.output(DIR,CCW)
         GPIO.output(DIR2,CCW)
@@ -80,10 +70,10 @@ def stepper_motor():
             GPIO.output(STEP2, GPIO.LOW)
             sleep(delay)
 
-        sleep(0.1)
+        sleep(0.5)
 
 if __name__ == '__main__':
     servos = threading.Thread(target=servo_motores)
     motors = threading.Thread(target=stepper_motor)
-    servos.start()
+    #servos.start()
     motors.start()
