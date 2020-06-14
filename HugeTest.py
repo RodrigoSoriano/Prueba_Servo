@@ -75,5 +75,8 @@ def stepper_motor():
 if __name__ == '__main__':
     servos = threading.Thread(target=servo_motores)
     motors = threading.Thread(target=stepper_motor)
-    #servos.start()
+    servos.start()
     motors.start()
+
+
+#sfwe
